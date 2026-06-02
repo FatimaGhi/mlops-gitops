@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/FatimaGhi/mlops-gitops
+    targetRevision: main
+    path: apps
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true       #  delete resources that are no longer defined in Git
+      selfHeal: true    #  automatically apply changes if the live state deviates from the desired state
+    syncOptions:
+      - CreateNamespace=true

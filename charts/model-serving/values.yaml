@@ -1,0 +1,32 @@
+image:
+  repository: 709598629349.dkr.ecr.eu-west-1.amazonaws.com/model-serving
+  tag: "latest"
+  pullPolicy: Always
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - host: api.mlops.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+mlflow:
+  trackingUri: "http://mlflow.mlflow.svc.cluster.local:5000"
+  modelName: "MyModel"
+  modelStage: "Production"
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
