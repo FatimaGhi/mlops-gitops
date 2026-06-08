@@ -7,9 +7,41 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/FatimaGhi/mlops-gitops
-    targetRevision: main
-    path: charts/monitoring
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: "57.0.3"
+    helm:
+      values: |
+        prometheus:
+          prometheusSpec:
+            retention: 7d
+            resources:
+              requests:
+                memory: "256Mi"
+                cpu: "100m"
+              limits:
+                memory: "512Mi"
+                cpu: "500m"
+        grafana:
+          adminPassword: "mlops-admin"
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - grafana.mlops.local
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+        alertmanager:
+          enabled: false
+        nodeExporter:
+          enabled: true
+        kubeStateMetrics:
+          enabled: true
 
   destination:
     server: https://kubernetes.default.svc
@@ -21,4 +53,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=false
-      - ServerSideApply=true   
+      - ServerSideApply=true
