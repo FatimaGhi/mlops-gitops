@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://community-charts.github.io/helm-charts
     chart: mlflow
-    targetRevision: "1.0.15"
+    targetRevision: "0.7.19"
     helm:
       values: |
         artifactRoot: s3://mlops-mlflow-artifacts-709598629349/mlflow
