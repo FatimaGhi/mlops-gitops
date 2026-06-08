@@ -14,7 +14,7 @@ kube-prometheus-stack:
 
   # Grafana
   grafana:
-    adminPassword: "mlops-admin"  # password of admin 
+    adminPassword: "mlops-admin"  # password  admin 
 
     ingress:
       enabled: true
