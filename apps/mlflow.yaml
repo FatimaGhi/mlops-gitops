@@ -7,9 +7,30 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/FatimaGhi/mlops-gitops
-    targetRevision: main
-    path: charts/mlflow
+    repoURL: https://community-charts.github.io/helm-charts
+    chart: mlflow
+    targetRevision: "1.0.15"
+    helm:
+      values: |
+        artifactRoot: s3://mlops-mlflow-artifacts-709598629349/mlflow
+        service:
+          type: ClusterIP
+          port: 5000
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hosts:
+            - host: mlflow.mlops.local
+              paths:
+                - path: /
+                  pathType: Prefix
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
 
   destination:
     server: https://kubernetes.default.svc
@@ -20,4 +41,5 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=false  
+      - CreateNamespace=false
+      - ServerSideApply=true
