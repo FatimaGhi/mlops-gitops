@@ -12,13 +12,17 @@ spec:
     targetRevision: "0.7.19"
     helm:
       values: |
-        artifactRoot: s3://mlops-mlflow-artifacts-709598629349/mlflow
+        artifactRoot:
+          s3:
+            enabled: true
+            bucket: mlops-mlflow-artifacts-709598629349
+            path: mlflow
         service:
           type: ClusterIP
           port: 5000
         ingress:
           enabled: true
-          ingressClassName: nginx
+          ClassName: nginx
           hosts:
             - host: mlflow.mlops.local
               paths:
