@@ -39,7 +39,7 @@ spec:
 
         ingress:
           enabled: true
-          ClassName: nginx
+          className: nginx
           hosts:
             - host: mlflow.mlops.local
               paths:
