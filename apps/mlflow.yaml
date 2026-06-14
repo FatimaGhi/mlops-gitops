@@ -25,12 +25,16 @@ spec:
 
 
         backendStore:
-          sqlite:
-          enabled: true
-          path: /mlflow/data/mlflow.db    # ← Use a persistent volume for the SQLite database
+          postgres:
+            enabled: true
+            host: "mlflow-db.cj4o8g0uewbo.eu-west-1.rds.amazonaws.com"
+            port: 5432
+            database: mlflow
+            user: mlflow_admin
+            password: "z2RhrZFH90A8kyOM"
 
         persistence:
-          enabled: true
+          enabled: false
           size: 2Gi
 
         service:
