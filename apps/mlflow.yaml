@@ -32,7 +32,7 @@ spec:
             password: "z2RhrZFH90A8kyOM"
 
         extraArgs:
-          disable-security-middleware: ""
+          disable-security-middleware: true
 
 
         service:
