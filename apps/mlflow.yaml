@@ -20,7 +20,6 @@ spec:
             enabled: true
             bucket: mlops-mlflow-artifacts-709598629349
             path: mlflow
-            region: eu-west-1
 
         backendStore:
           databaseMigration: true
