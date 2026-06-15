@@ -32,10 +32,8 @@ spec:
             password: "z2RhrZFH90A8kyOM"
 
         extraArgs:
-          - "--allowed-hosts"
-          - "*"
-          - "--cors-allowed-origins"
-          - "*"
+          allowed-hosts: "*"
+          cors-allowed-origins: "*"
 
 
         service:
