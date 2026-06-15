@@ -13,6 +13,7 @@ spec:
       labels:
         app: model-serving
     spec:
+      serviceAccountName: model-serving
       containers:
         - name: model-serving
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
