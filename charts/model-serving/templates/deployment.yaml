@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
+            - containerPort: 7860
           env:
             - name: MLFLOW_TRACKING_URI
               value: {{ .Values.mlflow.trackingUri }}

@@ -7,6 +7,10 @@ spec:
   selector:
     app: model-serving
   ports:
-    - port: {{ .Values.service.port }}
+    - name: api
+      port: {{ .Values.service.port }}
       targetPort: 8000
+    - name: gradio
+      port: 7860
+      targetPort: 7860
   type: {{ .Values.service.type }}
