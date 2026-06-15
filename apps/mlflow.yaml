@@ -34,8 +34,8 @@ spec:
         extraArgs: {}
         
         extraEnvVars:
-          MLFLOW_SERVER_ALLOWED_HOSTS: "mlflow.mlops.local,mlflow.mlflow.svc.cluster.local"
-          MLFLOW_SERVER_CORS_ALLOWED_ORIGINS: "https://mlflow.mlops.local"
+          MLFLOW_SERVER_ALLOWED_HOSTS: "*"
+          MLFLOW_SERVER_CORS_ALLOWED_ORIGINS: "*"
 
         service:
           type: ClusterIP
