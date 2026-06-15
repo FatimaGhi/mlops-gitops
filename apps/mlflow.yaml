@@ -31,6 +31,12 @@ spec:
             user: mlflow_admin
             password: "z2RhrZFH90A8kyOM"
 
+        extraArgs:
+          - "--allowed-hosts"
+          - "*"
+          - "--cors-allowed-origins"
+          - "*"
+
 
         service:
           type: ClusterIP
