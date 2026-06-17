@@ -5,7 +5,6 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: kube-prometheus-stack
@@ -22,6 +21,58 @@ spec:
               limits:
                 memory: "512Mi"
                 cpu: "500m"
+            additionalScrapeConfigs:
+              - job_name: model-serving
+                static_configs:
+                  - targets:
+                      - model-serving.model-serving.svc.cluster.local:8000
+                metrics_path: /metrics
+                scrape_interval: 15s
+        alertmanager:
+          enabled: true
+          config:
+            global:
+              slack_api_url: "" 
+            route:
+              receiver: slack
+              group_wait: 30s
+              group_interval: 5m
+              repeat_interval: 1h
+            receivers:
+              - name: slack
+                slack_configs:
+                  - api_url_secret:
+                      name: alertmanager-slack-secret
+                      key: slack-webhook-url
+                    channel: "#mlops-alerts"
+                    title: "MLOps Alert"
+                    text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+        additionalPrometheusRulesMap:
+          mlops-alerts:
+            groups:
+              - name: model-serving
+                rules:
+                  - alert: HighLatency
+                    expr: histogram_quantile(0.99, churn_prediction_latency_seconds_bucket) > 0.5
+                    for: 1m
+                    labels:
+                      severity: warning
+                    annotations:
+                      summary: "High latency detected (p99 > 500ms)"
+                  - alert: HighChurnRate
+                    expr: rate(churn_predictions_total{label="Churn"}[5m]) / rate(churn_predictions_total[5m]) > 0.5
+                    for: 2m
+                    labels:
+                      severity: warning
+                    annotations:
+                      summary: "High churn rate detected - possible data drift"
+                  - alert: ModelServingDown
+                    expr: up{job="model-serving"} == 0
+                    for: 1m
+                    labels:
+                      severity: critical
+                    annotations:
+                      summary: "Model serving is down!"
         grafana:
           adminPassword: "mlops-admin"
           ingress:
@@ -36,17 +87,13 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "300m"
-        alertmanager:
-          enabled: false
         nodeExporter:
           enabled: true
         kubeStateMetrics:
           enabled: true
-
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-
   syncPolicy:
     automated:
       prune: true
