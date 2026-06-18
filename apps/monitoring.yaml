@@ -31,8 +31,6 @@ spec:
         alertmanager:
           enabled: true
           config:
-            global:
-              slack_api_url: "" 
             route:
               receiver: slack
               group_wait: 30s
