@@ -44,7 +44,7 @@ spec:
                   - api_url_file: /etc/alertmanager/config/slack-webhook-url
                     channel: "#mlops-alerts"
                     title: "MLOps Alert"
-                    text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}
+                    text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
         additionalPrometheusRulesMap:
           mlops-alerts:
             groups:
