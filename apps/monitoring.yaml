@@ -31,8 +31,11 @@ spec:
         alertmanager:
           enabled: true
           alertmanagerSpec:
-            alertmanagerConfigSecret: alertmanager-slack-secret
+            secrets:
+              - alertmanager-slack-secret
           config:
+            global:
+              resolve_timeout: 5m
             route:
               receiver: slack
               group_wait: 30s
@@ -41,7 +44,7 @@ spec:
             receivers:
               - name: slack
                 slack_configs:
-                  - api_url_file: /etc/alertmanager/config/slack-webhook-url
+                  - api_url_file: /etc/alertmanager/secrets/alertmanager-slack-secret/slack-webhook-url
                     channel: "#mlops-alerts"
                     title: "MLOps Alert"
                     text: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
