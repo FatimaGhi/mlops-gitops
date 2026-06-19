@@ -22,5 +22,10 @@ spec:
                     secretKeyRef:
                       name: github-token
                       key: token
+                - name: SLACK_WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: alertmanager-slack-secret
+                      key: slack-webhook-url
           restartPolicy: Never
       ttlSecondsAfterFinished: 300
