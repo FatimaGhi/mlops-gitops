@@ -17,6 +17,10 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+    - host: gradio.34.240.135.188.nip.io
+      paths:
+        - path: /
+          pathType: Prefix
 
 mlflow:
   trackingUri: "http://mlflow.mlflow.svc.cluster.local:5000"

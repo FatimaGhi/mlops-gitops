@@ -19,6 +19,6 @@ spec:
               service:
                 name: model-serving
                 port:
-                  number: {{ $.Values.service.port }}
+                  number: {{ .port | default $.Values.service.port }}
           {{- end }}
     {{- end }}
