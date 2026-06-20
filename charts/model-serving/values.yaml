@@ -13,7 +13,7 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - host: api.mlops.local
+    - host: api.34.240.135.188.nip.io
       paths:
         - path: /
           pathType: Prefix
