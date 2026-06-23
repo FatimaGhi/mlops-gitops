@@ -13,10 +13,11 @@ ingress:
   enabled: true
   ingressClassName: nginx
   hosts:
-    - host: api.34.240.135.188.nip.io
+    - host: ""
       paths:
         - path: /
           pathType: Prefix
+          port: 8000
     - host: gradio.34.240.135.188.nip.io
       paths:
         - path: /
