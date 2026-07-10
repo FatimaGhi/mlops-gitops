@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: model-serving
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 2
   metrics:
     - type: Resource
       resource:
@@ -17,9 +17,9 @@ spec:
         target:
           type: Utilization
           averageUtilization: 80    
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 200    
+    # - type: Resource
+    #   resource:
+    #     name: memory
+    #     target:
+    #       type: Utilization
+    #       averageUtilization: 200    
