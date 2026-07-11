@@ -1,6 +1,6 @@
 image:
   repository: 709598629349.dkr.ecr.eu-west-1.amazonaws.com/model-serving
-  tag: "174f2abc60f17df0a6a3a628aab01db1a4b14de7"
+  tag: "8734f8f17e8cd724607064fe0b5afa1a48ef4a47"
   pullPolicy: Always
 
 replicaCount: 1
